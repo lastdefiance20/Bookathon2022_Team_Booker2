@@ -1,1 +1,0 @@
-python active_prediction.py --fine_tune --name 'skt_lr_2e_5_epochs_5_length_512' --additional_training --prompt '서울역에 도착하자마자 발견한 것은 시위하는 사람들이었다.' --restore_from_text 'result.txt'

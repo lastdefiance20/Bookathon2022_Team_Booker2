@@ -34,7 +34,7 @@ def define_argparser():
     p.add_argument('--repetition_penalty', type=float, default=1.5)
 
     p.add_argument('--prompt', type=str, default='국경의 긴 터널을 빠져 나오자, 설국이었다.')
-    
+
     p.add_argument('--additional_training', action='store_true')
 
     p.add_argument('--text_save_folder', type=str, default='./saved_text/')
@@ -53,10 +53,14 @@ def main(config):
                                 config.name,
                                 )
 
-            model_config = torch.load(os.path.join(path, 'best_.pt'), map_location='cuda:0')['config']
-            model_config.additional_training = False
+            model_config = torch.load(os.path.join(path, 'best_.pt'), map_location='cuda:0')['config'] if not config.additional_training else \
+                            torch.load(os.path.join(path, 'best__.pt'), map_location='cuda:0')['config']
             model = Model(model_config).cuda()
-            model.load_state_dict(torch.load(os.path.join(path, 'best_.pt'), map_location='cuda:0')['model'])
+            if not config.additional_training:
+                model.load_state_dict(torch.load(os.path.join(path, 'best_.pt'), map_location='cuda:0')['model'])
+            else:
+                model.load_state_dict(torch.load(os.path.join(path, 'best__.pt'), map_location='cuda:0')['model'])
+
 
         else:  # huggingface model parameter
             model = AutoModelForCausalLM.from_pretrained(config.pretrained_model_name).cuda()
@@ -115,15 +119,15 @@ def main(config):
                     output = tokenizer.decode(output_tensor[i], skip_special_tokens=False)
                     output = kss.split_sentences(output)[0].replace('<unk>', '').replace('\n', '').replace('</d>', '')
                     candidate_list.append(output)
-
+                
                 input_list.append(input_prompt)
 
             for idx, i in enumerate(candidate_list):
-                print(f'{idx}th : {i}')
+                print(f'{idx}th : {i.strip()}')
 
             command = input('select(r=reset_candidate, d=drop_last_sentence, p=reset_hyperparameter, n=New_prompt, b=Break) : ')
             command = command.strip()
-
+            
             if command == 'p' or command == 'ㅔ':
                 print('RESET hyperparameter')
                 config.top_k = int(input('top_k : '))

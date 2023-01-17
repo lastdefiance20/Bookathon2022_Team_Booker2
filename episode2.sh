@@ -1,0 +1,1 @@
+python active_prediction.py --fine_tune --name 'skt_lr_2e_5_epochs_5_length_512' --prompt '역에는 돈이 없는 사람으로 가득했다. 가난한 사람은 도와주어야 한다는 생각이 나를 지배했다.' --restore_from_text 'episode2.txt' --text_save_name 'episode2.txt'

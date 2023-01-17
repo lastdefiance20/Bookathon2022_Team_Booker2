@@ -11,7 +11,7 @@ import torch_optimizer as custom_optim
 from transformers import AdamW
 from transformers import get_polynomial_decay_schedule_with_warmup, get_cosine_schedule_with_warmup
 import pytorch_lightning as pl
-#import wandb
+import wandb
 import torch.optim as optim
 from pytorch_lightning.callbacks import TQDMProgressBar
 
@@ -37,18 +37,17 @@ class Model(pl.LightningModule):
 
         self.model.gradient_checkpointing_enable()
 
-        if not cfg.unfreeze:
-            for parameter in self.model.parameters():
-                parameter.requires_grad = False
-            for i, m in enumerate(self.model.transformer.h):
-                # Only un-freeze the last n transformer blocks
-                if i >= 12:
-                    for parameter in m.parameters():
-                        parameter.requires_grad = True
-            for parameter in self.model.transformer.ln_f.parameters():
-                parameter.requires_grad = True
-            for parameter in self.model.lm_head.parameters():
-                parameter.requires_grad = True
+        for parameter in self.model.parameters():
+            parameter.requires_grad = False
+        for i, m in enumerate(self.model.transformer.h):
+            # Only un-freeze the last n transformer blocks
+            if i >= 12:
+                for parameter in m.parameters():
+                    parameter.requires_grad = True
+        for parameter in self.model.transformer.ln_f.parameters():
+            parameter.requires_grad = True
+        for parameter in self.model.lm_head.parameters():
+            parameter.requires_grad = True
 
         self.best_loss = np.inf
 
@@ -184,7 +183,7 @@ class Model(pl.LightningModule):
                 'model': self.state_dict(),
                 'config' : config,
                 # 'loss' : round(loss, 4)
-            }, os.path.join(path, 'best_.pt') if config.additional_training else os.path.join(path, 'best__.pt')
+            }, os.path.join(path, 'best_.pt') if 'working' not in os.getcwd() else 'best_{}_{}.pt'.format(str(round(loss, 4)), config.valid_fold)
         )
 
 

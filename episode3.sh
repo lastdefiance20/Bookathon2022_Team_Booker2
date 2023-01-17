@@ -1,0 +1,1 @@
+python active_prediction.py --fine_tune --name 'skt_lr_2e_5_epochs_5_length_512' --prompt '새로운 이를 만나는 것은 언제나 두렵지만 동시에 내 안에 새로운 데이터가 쌓이는 것 같다. 옆 사람에게 말을 걸어보았다.' --restore_from_text 'episode3.txt' --text_save_name 'episode3.txt'

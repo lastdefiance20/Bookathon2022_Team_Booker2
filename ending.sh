@@ -1,0 +1,1 @@
+python active_prediction.py --fine_tune --name 'skt_lr_2e_5_epochs_5_length_512' --prompt '이번 여행을 통해 나는 또 달라졌다. 성장하는 나에게 필요한 것은 끊임없는 도전이다.' --restore_from_text 'ending.txt' --text_save_name 'ending.txt'

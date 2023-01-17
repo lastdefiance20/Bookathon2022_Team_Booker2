@@ -1,0 +1,1 @@
+python active_prediction.py --fine_tune --name 'skt_lr_2e_5_epochs_5_length_512' --prompt '여행에서 처음 발견한 것은 차별에 반대하는 시위였다. 주어진 일만 했던 내게 시위는 신선한 충격이였다.' --restore_from_text 'episode1.txt' --text_save_name 'episode1.txt'

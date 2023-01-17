@@ -1,0 +1,1 @@
+python active_prediction.py --fine_tune --name 'skt_lr_2e_5_epochs_5_length_512' --prompt '나는 멈춰 있는 모든 것을 혐오한다. 어떤 도전이든 스스로에게 과제를 주고 싶어 여행을 떠났다.' --restore_from_text 'begin.txt' --text_save_name 'begin.txt'
