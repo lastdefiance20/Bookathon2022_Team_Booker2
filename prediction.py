@@ -30,6 +30,9 @@ def define_argparser():
     p.add_argument('--num_return_sequence', type=int, default=5)
     p.add_argument('--temperature', type=float, default=.7)
     p.add_argument('--repetition_penalty', type=float, default=1)
+    p.add_argument('--additional_training', action='store_true')
+
+
 
 
     config = p.parse_args()
@@ -37,7 +40,6 @@ def define_argparser():
     return config
 
 def main(config):
-
     with torch.no_grad():
         if config.fine_tune:   # using find-tuned-parameter
             path = os.path.join(config.model_fn,
@@ -45,9 +47,10 @@ def main(config):
                                 config.name,
                                 )
 
-            model_config = torch.load(os.path.join(path, 'best__.pt'), map_location='cuda:0')['config']
+            model_config = torch.load(os.path.join(path, 'best_.pt'), map_location='cuda:0')['config']
+            model_config.additional_training = False
             model = Model(model_config).cuda()
-            model.load_state_dict(torch.load(os.path.join(path, 'best__.pt'), map_location='cuda:0')['model'])
+            model.load_state_dict(torch.load(os.path.join(path, 'best_.pt'), map_location='cuda:0')['model'])
 
         else: # huggingface model parameter
             model = AutoModelForCausalLM.from_pretrained(config.pretrained_model_name).cuda()

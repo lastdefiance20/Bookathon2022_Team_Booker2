@@ -1,0 +1,1 @@
+python active_prediction_large.py --fine_tune --name 'skt_lr_2e_5_epochs_5_length_512' --prompt '담대하다.' --restore_from_text 'episode4.txt' --text_save_name 'episode4.txt'

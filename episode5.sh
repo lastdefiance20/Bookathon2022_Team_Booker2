@@ -1,0 +1,1 @@
+python active_prediction_large.py --fine_tune --name 'skt_lr_2e_5_epochs_5_length_512' --prompt '우리나라의 독립운동가들의 정신을 배우고 싶다는 생각을 매일 한다.' --restore_from_text 'episode5.txt' --text_save_name 'episode5.txt'
