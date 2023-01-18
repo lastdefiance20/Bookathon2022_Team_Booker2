@@ -2,12 +2,4 @@ __pycache__/
 
 .ipynb_checkpoints/
 
-data/
-
-model_save/skt/ko-gpt-trinity-1.2B-v0.5/
-
-proto/
-
 wandb/
-
-active_prediction2.py
