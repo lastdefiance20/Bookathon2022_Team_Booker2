@@ -13,8 +13,6 @@ import argparse
 from utils_cv_ import Model, seed_everything
 seed_everything(seed=42)
 
-from log_demo import *
-
 def define_argparser():
     '''
     Define argument parser to take inference using pre-trained model.
@@ -138,12 +136,6 @@ def main(config):
                 prompt = input('NEW PROMPT : ')
                 prompt_list.append(prompt)
 
-                msg = 'Human add new Prompt: {}'.format(prompt)
-                log_request = LogRequest(log_level=DEBUG, msg=msg)
-
-                log_response = request_log(log_request)
-                print("logging result: ",log_response.done is True)
-
                 #save prompt_list text data to result.txt using .joint(' ')
                 with open(config.text_save_folder + config.text_save_name, 'w') as f:
                     for item in prompt_list:
@@ -167,21 +159,11 @@ def main(config):
             new_prompt = candidate_list[command]
             # print(new_prompt)
             prompt_list.append(new_prompt.strip())
-            # print(prompt_list)
-
-            input_prompt = input_list[command//5]
-
-            msg = 'Prompt: {}\nGenearted: {}'.format(input_prompt, new_prompt)
-            log_request = LogRequest(log_level=DEBUG, msg=msg)
-
-            log_response = request_log(log_request)
-            print("logging result: ",log_response.done is True)
 
             #save prompt_list text data to result.txt using .joint(' ')
             with open(config.text_save_folder + config.text_save_name, 'w') as f:
                 for item in prompt_list:
                     f.write("%s\n" % item)
-
 
 if __name__ == '__main__':
     config = define_argparser()
