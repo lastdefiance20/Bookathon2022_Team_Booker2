@@ -6,8 +6,9 @@
 \
 > [KR generated essay](./booker2_result.pdf)
 
-## this is repository of Team Booker^2
-we will add colab demo soon!
+## Colab Demo
+You can simply try it using colab
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1q7X_Fw1Bkv8dWkkWdWXHlP0V0UTAVm9e?usp=sharing)
 
 ## Team member
 
